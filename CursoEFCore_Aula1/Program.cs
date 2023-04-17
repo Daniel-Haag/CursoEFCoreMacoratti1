@@ -11,6 +11,7 @@ namespace CursoEFCore_Aula1
             public int ProdutoId { get; set; }
             public string Nome { get; set;}
             public decimal Preco { get; set; }
+            public int Estoque { get; set; }
         }
 
         //Classe de contexto
