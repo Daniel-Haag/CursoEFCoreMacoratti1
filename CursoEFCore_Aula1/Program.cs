@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace CursoEFCore_Aula1
 {
@@ -30,7 +31,17 @@ namespace CursoEFCore_Aula1
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            using (var db = new AppDbContext())
+            {
+                var produtos = db.Produtos.ToList();
+
+                foreach (var item in produtos)
+                {
+                    Console.WriteLine(item.Nome + "\t" + item.Preco.ToString("c"));
+                }
+            }
+
+            Console.ReadLine();
         }
     }
 }
