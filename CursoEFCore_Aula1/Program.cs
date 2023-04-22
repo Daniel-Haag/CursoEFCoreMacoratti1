@@ -42,27 +42,37 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
-                var produtoNovo = new Produto();
-                produtoNovo.Nome = "Produto teste usando dbSet";
-                produtoNovo.Preco = 3.59M;
-                produtoNovo.Estoque = 10;
+                AdicionaUmProduto(db);
 
-                db.Produtos.Add(produtoNovo);
-                db.SaveChanges();
-
-                var listaProdutos = new List<Produto>
-                {
-                    new Produto { Nome = "Caderno", Preco = 5.59M, Estoque = 20 },
-                    new Produto { Nome = "Grampos", Preco = 7.00M, Estoque = 30 }
-                };
-
-                db.Produtos.AddRange(listaProdutos);
-                db.SaveChanges();
+                AdicionaListaDeProdutos(db);
 
                 ExibirProdutos(db);
             }
 
             Console.ReadLine();
+        }
+
+        private static void AdicionaListaDeProdutos(AppDbContext db)
+        {
+            var listaProdutos = new List<Produto>
+                {
+                    new Produto { Nome = "Caderno", Preco = 5.59M, Estoque = 20 },
+                    new Produto { Nome = "Grampos", Preco = 7.00M, Estoque = 30 }
+                };
+
+            db.Produtos.AddRange(listaProdutos);
+            db.SaveChanges();
+        }
+
+        private static void AdicionaUmProduto(AppDbContext db)
+        {
+            var produtoNovo = new Produto();
+            produtoNovo.Nome = "Produto teste usando dbSet";
+            produtoNovo.Preco = 3.59M;
+            produtoNovo.Estoque = 10;
+
+            db.Produtos.Add(produtoNovo);
+            db.SaveChanges();
         }
 
         private static void ExibirProdutos(AppDbContext db)
