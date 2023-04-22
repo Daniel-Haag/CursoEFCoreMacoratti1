@@ -41,10 +41,20 @@ namespace CursoEFCore_Aula1
 
                 //RemoverProduto(db);
 
+                AlterarProduto(db);
+
                 ExibirProdutos(db);
             }
 
             Console.ReadLine();
+        }
+
+        private static void AlterarProduto(AppDbContext db)
+        {
+            var produto = db.Produtos.First();
+            produto.Preco = 100M;
+            db.Update(produto);
+            db.SaveChanges();
         }
 
         private static void RemoverProduto(AppDbContext db)
