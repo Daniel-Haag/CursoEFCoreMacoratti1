@@ -28,13 +28,6 @@ namespace CursoEFCore_Aula1
             {
                 optionsBuilder.UseSqlServer(@"Data Source=DANIEL_HAAG\SQLEXPRESS;" +
                     "Initial Catalog=Aula1DB;Integrated Security=True");
-
-                //optionsBuilder
-                //    .EnableSensitiveDataLogging(true)
-                //    .UseLoggerFactory(new LoggerFactory().AddConsole((category, level) =>
-                //    level == LogLevel.Information &&
-                //    category == DbLoggerCategory.Database.Command.Name, true));
-
             }
         }
 
@@ -42,14 +35,23 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
-                AdicionaUmProduto(db);
+                //AdicionaUmProduto(db);
 
-                AdicionaListaDeProdutos(db);
+                //AdicionaListaDeProdutos(db);
+
+                //RemoverProduto(db);
 
                 ExibirProdutos(db);
             }
 
             Console.ReadLine();
+        }
+
+        private static void RemoverProduto(AppDbContext db)
+        {
+            var produto = db.Produtos.First();
+            db.Produtos.Remove(produto);
+            db.SaveChanges();
         }
 
         private static void AdicionaListaDeProdutos(AppDbContext db)
