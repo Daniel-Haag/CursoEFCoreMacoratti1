@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CursoEFCore_Aula1
@@ -42,11 +43,20 @@ namespace CursoEFCore_Aula1
             using (var db = new AppDbContext())
             {
                 var produtoNovo = new Produto();
-                produtoNovo.Nome = "Lápis";
+                produtoNovo.Nome = "Produto teste usando dbSet";
                 produtoNovo.Preco = 3.59M;
                 produtoNovo.Estoque = 10;
 
-                db.Add(produtoNovo);
+                db.Produtos.Add(produtoNovo);
+                db.SaveChanges();
+
+                var listaProdutos = new List<Produto>
+                {
+                    new Produto { Nome = "Caderno", Preco = 5.59M, Estoque = 20 },
+                    new Produto { Nome = "Grampos", Preco = 7.00M, Estoque = 30 }
+                };
+
+                db.Produtos.AddRange(listaProdutos);
                 db.SaveChanges();
 
                 ExibirProdutos(db);
