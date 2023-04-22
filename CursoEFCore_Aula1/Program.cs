@@ -33,15 +33,20 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
-                var produtos = db.Produtos.ToList();
-
-                foreach (var item in produtos)
-                {
-                    Console.WriteLine(item.Nome + "\t" + item.Preco.ToString("c"));
-                }
+                ExibirProdutos(db);
             }
 
             Console.ReadLine();
+        }
+
+        private static void ExibirProdutos(AppDbContext db)
+        {
+            var produtos = db.Produtos.ToList();
+
+            foreach (var item in produtos)
+            {
+                Console.WriteLine(item.Nome + "\t" + item.Preco.ToString("c"));
+            }
         }
     }
 }
