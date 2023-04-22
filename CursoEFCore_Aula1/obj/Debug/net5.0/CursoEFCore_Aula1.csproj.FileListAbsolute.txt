@@ -63,3 +63,12 @@ C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\obj\Debug\net5.0\refint\CursoEFCor
 C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\obj\Debug\net5.0\CursoEFCore_Aula1.pdb
 C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\obj\Debug\net5.0\CursoEFCore_Aula1.genruntimeconfig.cache
 C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\obj\Debug\net5.0\ref\CursoEFCore_Aula1.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\Microsoft.Extensions.Logging.Configuration.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\Microsoft.Extensions.Logging.Console.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+C:\Cursos\CursoEFCore_Aula1\CursoEFCore_Aula1\bin\Debug\net5.0\System.Text.Json.dll

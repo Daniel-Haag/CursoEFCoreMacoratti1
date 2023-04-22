@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
@@ -26,6 +27,13 @@ namespace CursoEFCore_Aula1
             {
                 optionsBuilder.UseSqlServer(@"Data Source=DANIEL_HAAG\SQLEXPRESS;" +
                     "Initial Catalog=Aula1DB;Integrated Security=True");
+
+                //optionsBuilder
+                //    .EnableSensitiveDataLogging(true)
+                //    .UseLoggerFactory(new LoggerFactory().AddConsole((category, level) =>
+                //    level == LogLevel.Information &&
+                //    category == DbLoggerCategory.Database.Command.Name, true));
+
             }
         }
 
@@ -33,6 +41,14 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
+                var produtoNovo = new Produto();
+                produtoNovo.Nome = "Lápis";
+                produtoNovo.Preco = 3.59M;
+                produtoNovo.Estoque = 10;
+
+                db.Add(produtoNovo);
+                db.SaveChanges();
+
                 ExibirProdutos(db);
             }
 
