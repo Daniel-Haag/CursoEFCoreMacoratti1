@@ -41,7 +41,7 @@ namespace CursoEFCore_Aula1
 
                 //RemoverProduto(db);
 
-                AlterarProduto(db);
+                //AlterarProduto(db);
 
                 ExibirProdutos(db);
             }
@@ -52,14 +52,18 @@ namespace CursoEFCore_Aula1
         private static void AlterarProduto(AppDbContext db)
         {
             var produto = db.Produtos.First();
-            produto.Preco = 100M;
-            db.Update(produto);
+            produto.Nome = "Teste usando dbSet no update";
+            //Não usando dbSet
+            //db.Update(produto);
+            //Usando dbSet
+            db.Produtos.Update(produto);
             db.SaveChanges();
         }
 
         private static void RemoverProduto(AppDbContext db)
         {
             var produto = db.Produtos.First();
+            //Usando dbSet
             db.Produtos.Remove(produto);
             db.SaveChanges();
         }
