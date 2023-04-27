@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CursoEFCore_Aula1
 {
@@ -35,15 +36,17 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
-                //AdicionaUmProduto(db);
+                AdicionaUmProduto(db);
 
                 //AdicionaListaDeProdutos(db);
 
-                //RemoverProduto(db);
+                RemoverProduto(db);
 
-                //AlterarProduto(db);
+                AlterarProduto(db);
 
                 ExibirProdutos(db);
+
+                db.SaveChanges();
             }
 
             Console.ReadLine();
@@ -52,20 +55,20 @@ namespace CursoEFCore_Aula1
         private static void AlterarProduto(AppDbContext db)
         {
             var produto = db.Produtos.First();
-            produto.Nome = "Teste usando dbSet no update";
+            produto.Nome = "Teste usando único saveChanges()";
             //Não usando dbSet
             //db.Update(produto);
             //Usando dbSet
             db.Produtos.Update(produto);
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         private static void RemoverProduto(AppDbContext db)
         {
-            var produto = db.Produtos.First();
+            var produto = db.Produtos.Where(x => x.Nome.Contains("Grampos")).FirstOrDefault();
             //Usando dbSet
             db.Produtos.Remove(produto);
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         private static void AdicionaListaDeProdutos(AppDbContext db)
@@ -77,18 +80,18 @@ namespace CursoEFCore_Aula1
                 };
 
             db.Produtos.AddRange(listaProdutos);
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         private static void AdicionaUmProduto(AppDbContext db)
         {
             var produtoNovo = new Produto();
-            produtoNovo.Nome = "Produto teste usando dbSet";
+            produtoNovo.Nome = "Produto teste usando único saveChanges";
             produtoNovo.Preco = 3.59M;
             produtoNovo.Estoque = 10;
 
             db.Produtos.Add(produtoNovo);
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         private static void ExibirProdutos(AppDbContext db)
