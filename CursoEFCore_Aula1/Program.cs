@@ -36,42 +36,45 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
-                AdicionaUmProduto(db);
-
-                //AdicionaListaDeProdutos(db);
-
-                RemoverProduto(db);
-
-                AlterarProduto(db);
-
+                AdicionaUmProdutoViaDbSet(db);
+                AlterarProdutoViaDbSet(db);
+                MostrarEstadoEntidades(db);
                 ExibirProdutos(db);
-
-                db.SaveChanges();
+                SalvaAlteracoes(db);
             }
 
             Console.ReadLine();
         }
 
-        private static void AlterarProduto(AppDbContext db)
+        private static void SalvaAlteracoes(AppDbContext db)
         {
-            var produto = db.Produtos.First();
-            produto.Nome = "Teste usando único saveChanges()";
-            //Não usando dbSet
-            //db.Update(produto);
-            //Usando dbSet
-            db.Produtos.Update(produto);
-            //db.SaveChanges();
+            db.SaveChanges();
         }
 
-        private static void RemoverProduto(AppDbContext db)
+        private static void AlterarProdutoViaDbSet(AppDbContext db)
+        {
+            var produto = db.Produtos.First();
+            produto.Nome = "Produto alterado";
+            //dbSet
+            db.Produtos.Update(produto);
+        }
+
+        private static void AlterarProdutoSemDbSet(AppDbContext db)
+        {
+            var produto = db.Produtos.First();
+            produto.Nome = "Produto sem dbSet";
+            //Não usando dbSet
+            db.Update(produto);
+        }
+
+        private static void RemoverProdutoViaDbSet(AppDbContext db)
         {
             var produto = db.Produtos.Where(x => x.Nome.Contains("Grampos")).FirstOrDefault();
             //Usando dbSet
             db.Produtos.Remove(produto);
-            //db.SaveChanges();
         }
 
-        private static void AdicionaListaDeProdutos(AppDbContext db)
+        private static void AdicionaListaDeProdutosViaDbSet(AppDbContext db)
         {
             var listaProdutos = new List<Produto>
                 {
@@ -80,18 +83,28 @@ namespace CursoEFCore_Aula1
                 };
 
             db.Produtos.AddRange(listaProdutos);
-            //db.SaveChanges();
         }
 
-        private static void AdicionaUmProduto(AppDbContext db)
+        private static void AdicionaUmProdutoViaDbSet(AppDbContext db)
         {
             var produtoNovo = new Produto();
-            produtoNovo.Nome = "Produto teste usando único saveChanges";
+            produtoNovo.Nome = "Produto teste dbSet";
             produtoNovo.Preco = 3.59M;
             produtoNovo.Estoque = 10;
 
+            //dbSet
             db.Produtos.Add(produtoNovo);
-            //db.SaveChanges();
+
+            var estadoEntidade = db.Entry(produtoNovo).State;
+            Console.WriteLine($"Estado da entidade: {estadoEntidade}");
+        }
+
+        private static void MostrarEstadoEntidades(AppDbContext db)
+        {
+            foreach (var item in db.ChangeTracker.Entries())
+            {
+                Console.WriteLine(item.State);
+            }
         }
 
         private static void ExibirProdutos(AppDbContext db)
