@@ -12,14 +12,74 @@ namespace CursoEFCore_Aula1
         {
             using (var db = new AppDbContext())
             {
-                AdicionaUmProdutoViaDbSet(db);
-                AlterarProdutoViaDbSet(db);
-                MostrarEstadoEntidades(db);
-                ExibirProdutos(db);
+                //IncluirAutor(db);
+                //IncluirAutorlivro(db);
+                //IncluirAutores(db);
+                IncluirAutorlivrosAddRange(db);
                 SalvaAlteracoes(db);
+                ExibirAutores(db);
             }
 
             Console.ReadLine();
+        }
+
+        private static void IncluirAutor(AppDbContext db)
+        {
+            var autor = new Autor { Nome = "Daniel", Sobrenome = "Haag" };
+            db.Autores.Add(autor);
+        }
+
+        private static void IncluirAutores(AppDbContext db)
+        {
+            var autores = new List<Autor>();
+            autores.Add(new Autor { Nome = "Agatha", Sobrenome = "Christie" });
+            autores.Add(new Autor { Nome = "Mathew", Sobrenome = "Brian" });
+            autores.Add(new Autor { Nome = "Paul", Sobrenome = "Bob" });
+
+            db.AddRange(autores);
+        }
+
+        private static void IncluirAutorlivro(AppDbContext db)
+        {
+            var autorLivro = new Autor
+            {
+                Nome = "João",
+                Sobrenome = "Da Silva",
+                Livros = new List<Livro>
+                {
+                    new Livro{ Titulo = "Título Livro", AnoLancamento = new DateTime(1991, 11, 1) }
+                }
+            };
+
+            db.Add(autorLivro);
+        }
+
+        private static void IncluirAutorlivrosAddRange(AppDbContext db)
+        {
+            var autor = new Autor
+            {
+                Nome = "Stephen",
+                Sobrenome = "King"
+            };
+
+            var livros = new List<Livro>
+            {
+                new Livro{ Titulo = "Carrie", AnoLancamento = new DateTime(1974, 11, 1), Autor = autor },
+                new Livro{ Titulo = "A Coisa", AnoLancamento = new DateTime(1986, 11, 1), Autor = autor },
+                new Livro{ Titulo = "Angústia", AnoLancamento = new DateTime(1987, 11, 1), Autor = autor }
+            };
+
+            db.AddRange(livros);
+        }
+
+        private static void ExibirAutores(AppDbContext db)
+        {
+            var autores = db.Autores.ToList();
+
+            foreach (var item in autores)
+            {
+                Console.WriteLine($"Nome: {item.Nome} {item.Sobrenome}");
+            }
         }
 
         private static void SalvaAlteracoes(AppDbContext db)
