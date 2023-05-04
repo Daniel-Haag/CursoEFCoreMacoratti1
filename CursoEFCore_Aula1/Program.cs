@@ -1,4 +1,5 @@
-﻿using CursoEFCore_Aula1.Models;
+﻿using CursoEFCore_Aula1.Migrations;
+using CursoEFCore_Aula1.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace CursoEFCore_Aula1
                 //IncluirAutorlivrosAddRange(db);
                 //SalvaAlteracoes(db);
                 //ExibirAutores(db);
-                ExibirAutoresESeusLivros(db);
+                ExibirLivrosEAutores(db);
+                //ExibirAutoresESeusLivros(db);
             }
 
             Console.ReadLine();
@@ -85,6 +87,7 @@ namespace CursoEFCore_Aula1
 
         private static void ExibirAutoresESeusLivros(AppDbContext db)
         {
+            //AsNoTracking desabilita o rastreio da consulta
             var autores = db.Autores.AsNoTracking().Include(x => x.Livros).ToList();
 
             foreach (var item in autores)
@@ -95,6 +98,24 @@ namespace CursoEFCore_Aula1
                 {
                     Console.WriteLine($"\t {livro.Titulo}");
                 }
+            }
+        }
+
+        //Consulta Projeção
+        private static void ExibirLivrosEAutores(AppDbContext db)
+        {
+            var resultado = db.Autores.Where(x => x.Nome == "Stephen")
+                .Select(x => new
+                {
+                    Autor = x,
+                    LivrosDoAutor = x.Livros //Atribuo a propriedade de navegação para incluir a dependencia na consulta
+                })
+                .FirstOrDefault();
+
+            Console.WriteLine(resultado.Autor.Nome + " " + resultado.Autor.Sobrenome);
+            foreach (var livro in resultado.LivrosDoAutor)
+            {
+                Console.WriteLine("\t " + livro.Titulo);
             }
         }
 
