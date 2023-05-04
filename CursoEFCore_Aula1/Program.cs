@@ -85,7 +85,7 @@ namespace CursoEFCore_Aula1
 
         private static void ExibirAutoresESeusLivros(AppDbContext db)
         {
-            var autores = db.Autores.Include(x => x.Livros).ToList();
+            var autores = db.Autores.AsNoTracking().Include(x => x.Livros).ToList();
 
             foreach (var item in autores)
             {
