@@ -15,9 +15,10 @@ namespace CursoEFCore_Aula1
                 //IncluirAutor(db);
                 //IncluirAutorlivro(db);
                 //IncluirAutores(db);
-                IncluirAutorlivrosAddRange(db);
-                SalvaAlteracoes(db);
-                ExibirAutores(db);
+                //IncluirAutorlivrosAddRange(db);
+                //SalvaAlteracoes(db);
+                //ExibirAutores(db);
+                ExibirAutoresESeusLivros(db);
             }
 
             Console.ReadLine();
@@ -79,6 +80,21 @@ namespace CursoEFCore_Aula1
             foreach (var item in autores)
             {
                 Console.WriteLine($"Nome: {item.Nome} {item.Sobrenome}");
+            }
+        }
+
+        private static void ExibirAutoresESeusLivros(AppDbContext db)
+        {
+            var autores = db.Autores.Include(x => x.Livros).ToList();
+
+            foreach (var item in autores)
+            {
+                Console.WriteLine($"Nome: {item.Nome} {item.Sobrenome}");
+
+                foreach (var livro in item.Livros)
+                {
+                    Console.WriteLine($"\t {livro.Titulo}");
+                }
             }
         }
 
