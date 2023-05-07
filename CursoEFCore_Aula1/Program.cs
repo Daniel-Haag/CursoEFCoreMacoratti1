@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.XPath;
 
 namespace CursoEFCore_Aula1
 {
@@ -17,13 +18,56 @@ namespace CursoEFCore_Aula1
                 //IncluirAutorlivro(db);
                 //IncluirAutores(db);
                 //IncluirAutorlivrosAddRange(db);
-                //SalvaAlteracoes(db);
                 //ExibirAutores(db);
-                ExibirLivrosEAutores(db);
+                //ExibirLivrosEAutores(db);
                 //ExibirAutoresESeusLivros(db);
+                //IncluirVendedor(db);
+                //IncluirVenda(db);
+                //ExibirAutores(db);
+                ExibirVendedoresESeusProdutosVendidosViaInclude(db);
+                SalvaAlteracoes(db);
             }
 
             Console.ReadLine();
+        }
+
+        private static void ExibirVendedoresESeusProdutosVendidosViaInclude(AppDbContext db)
+        {
+            var vendedores = db.Vendedores.AsNoTracking().Include(x => x.Vendas).ToList();
+
+            //todo: finalizar...
+        }
+
+        private static void ExibirVendedoresESeusProdutosVendidosSemInclude(AppDbContext db)
+        {
+            
+
+            //todo: implementar...
+        }
+
+        private static void IncluirVendedor(AppDbContext db)
+        {
+            var vendedor1 = new Vendedor { Nome = "Vendedor 1", Nivel = "1", Salario = 1500, Setor = "Vendas produtos escolares" };
+            var vendedor2 = new Vendedor { Nome = "Vendedor 2", Nivel = "2", Salario = 1500, Setor = "Vendas produtos escolares" };
+            var vendedor3 = new Vendedor { Nome = "Vendedor 3", Nivel = "3", Salario = 1500, Setor = "Vendas produtos escolares" };
+
+            db.Vendedores.Add(vendedor1);
+            db.Vendedores.Add(vendedor2);
+            db.Vendedores.Add(vendedor3);
+        }
+
+        private static void IncluirVenda(AppDbContext db)
+        {
+            var vendedorResponsavel = db.Vendedores.First();
+            var produto = db.Produtos.Where(x => x.ProdutoId == 4).FirstOrDefault();
+
+            var venda = new Venda()
+            {
+                Produto = produto,
+                Vendedor = vendedorResponsavel,
+            };
+
+            db.Vendas.Add(venda);
         }
 
         private static void IncluirAutor(AppDbContext db)
