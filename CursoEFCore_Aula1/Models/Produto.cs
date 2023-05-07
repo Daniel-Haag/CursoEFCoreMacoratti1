@@ -12,5 +12,6 @@ namespace CursoEFCore_Aula1.Models
         public string Nome { get; set; }
         public decimal Preco { get; set; }
         public int Estoque { get; set; }
+        public ICollection<Venda> Vendas { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace CursoEFCore_Aula1.Models
         public string Nivel { get; set; }
         public decimal Salario { get; set; }
         public string Setor { get; set; }
+        public ICollection<Venda> Vendas { get; set; }
     }
 }
