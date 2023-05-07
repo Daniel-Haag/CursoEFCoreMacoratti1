@@ -13,6 +13,8 @@ namespace CursoEFCore_Aula1.Models
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Livro> Livros { get; set; }
+        public DbSet<Vendedor> Vendedores { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
 
         //Provedor e string de conexão
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
